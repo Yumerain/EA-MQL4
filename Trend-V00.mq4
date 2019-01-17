@@ -36,38 +36,45 @@
     如果交易系统系数达不到1，则为失败的交易系统。至于交易系统系数达到2的完美的交易系统，只是存在于理论中，市场中永远不存在。    
     */
 //+------------------------------------------------------------------+
-#property copyright "Copyright 2017, MetaQuotes Software Corp."
+#property copyright "Copyright 2019, 环球外汇网友交流群@Aother,448036253@qq.com"
 #property link      "https://www.mql5.com"
 #property version   "1.00"
 #property strict
 
-int MaSlwPeriod   = 100;
-int MaFstPeriod = 60;
+input int MaSlwPeriod   = 100;   //慢速均线周期
 
+input int MaFstPeriod = 60;      //快速均线周期
+
+string TimerLimit = "";
 
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
 //+------------------------------------------------------------------+
 int OnInit()
 {
-   EventSetTimer(60);
+   EventSetTimer(1);
    //创建对象
+   ObjectCreate(0,"lblTimer",OBJ_LABEL,0,NULL,NULL);
    ObjectCreate(0,"lblMaBig",OBJ_LABEL,0,NULL,NULL);
    ObjectCreate(0,"lblMaSmall",OBJ_LABEL,0,NULL,NULL);
    ObjectCreate(0,"lblAuthor",OBJ_LABEL,0,NULL,NULL);
    ObjectCreate(0,"lblConclusion",OBJ_LABEL,0,NULL,NULL);
    ObjectCreate(0,"lblAdvice",OBJ_LABEL,0,NULL,NULL);
    //设置内容
+   ObjectSetString(0,"lblTimer",OBJPROP_TEXT,_Symbol+"蜡烛剩余");
    ObjectSetString(0,"lblMaBig",OBJPROP_TEXT,"4H大均线");
    ObjectSetString(0,"lblMaSmall",OBJPROP_TEXT,"4H小均线");
    ObjectSetString(0,"lblAuthor",OBJPROP_TEXT,"作者：环球外汇网@Aother");
    ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知");
    ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：无");
    //设置颜色
+   ObjectSetInteger(0,"lblTimer",OBJPROP_COLOR,clrRed);
    ObjectSetInteger(0,"lblMaBig",OBJPROP_COLOR,clrViolet);
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_COLOR,clrBlue);
+   ObjectSetInteger(0,"lblAuthor",OBJPROP_COLOR,clrBlack);
    ObjectSetInteger(0,"lblAdvice",OBJPROP_COLOR,clrRed);
    //--- 定位右上角 
+   ObjectSetInteger(0,"lblTimer",OBJPROP_CORNER ,CORNER_RIGHT_UPPER); 
    ObjectSetInteger(0,"lblMaBig",OBJPROP_CORNER ,CORNER_RIGHT_UPPER); 
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_CORNER ,CORNER_RIGHT_UPPER); 
    ObjectSetInteger(0,"lblAuthor",OBJPROP_CORNER,CORNER_RIGHT_UPPER);
@@ -75,14 +82,16 @@ int OnInit()
    //--- 定位右下角
    ObjectSetInteger(0,"lblAdvice",OBJPROP_CORNER,CORNER_RIGHT_LOWER);
    //设置XY坐标
+   ObjectSetInteger(0,"lblTimer",OBJPROP_XDISTANCE,200);   
+   ObjectSetInteger(0,"lblTimer",OBJPROP_YDISTANCE,60);
    ObjectSetInteger(0,"lblMaBig",OBJPROP_XDISTANCE,200);   
-   ObjectSetInteger(0,"lblMaBig",OBJPROP_YDISTANCE,60); 
+   ObjectSetInteger(0,"lblMaBig",OBJPROP_YDISTANCE,80); 
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_XDISTANCE,200);   
-   ObjectSetInteger(0,"lblMaSmall",OBJPROP_YDISTANCE,80);
+   ObjectSetInteger(0,"lblMaSmall",OBJPROP_YDISTANCE,100);
    ObjectSetInteger(0,"lblConclusion",OBJPROP_XDISTANCE,200);
-   ObjectSetInteger(0,"lblConclusion",OBJPROP_YDISTANCE,100); 
+   ObjectSetInteger(0,"lblConclusion",OBJPROP_YDISTANCE,120); 
    ObjectSetInteger(0,"lblAuthor",OBJPROP_XDISTANCE,200);
-   ObjectSetInteger(0,"lblAuthor",OBJPROP_YDISTANCE,120);
+   ObjectSetInteger(0,"lblAuthor",OBJPROP_YDISTANCE,140);
    ObjectSetInteger(0,"lblAdvice",OBJPROP_XDISTANCE,450);
    ObjectSetInteger(0,"lblAdvice",OBJPROP_YDISTANCE,30);
    
@@ -98,6 +107,7 @@ void OnDeinit(const int reason)
    
    
    
+   ObjectsDeleteAll(0, 0, OBJ_LABEL);
 }
 //+------------------------------------------------------------------+
 //| Expert tick function                                             |
@@ -152,7 +162,10 @@ void OnTick()
 //+------------------------------------------------------------------+
 void OnTimer()
 {
-   
+   long hour = Time[0] + 60 * Period() - TimeCurrent();
+   long minute = (hour - hour % 60) / 60;
+   long second = hour % 60;
+   ObjectSetString(0,"lblTimer",OBJPROP_TEXT,StringFormat("%s蜡烛剩余：%d分%d秒",_Symbol,minute,second));
 }
 //+------------------------------------------------------------------+
 //| ChartEvent function                                              |
