@@ -41,8 +41,8 @@
 #property version   "1.00"
 #property strict
 
-int MaBigPeriod   = 100;
-int MaSmallPeriod = 60;
+int MaSlwPeriod   = 100;
+int MaFstPeriod = 60;
 
 
 //+------------------------------------------------------------------+
@@ -54,20 +54,37 @@ int OnInit()
    //创建对象
    ObjectCreate(0,"lblMaBig",OBJ_LABEL,0,NULL,NULL);
    ObjectCreate(0,"lblMaSmall",OBJ_LABEL,0,NULL,NULL);
+   ObjectCreate(0,"lblAuthor",OBJ_LABEL,0,NULL,NULL);
+   ObjectCreate(0,"lblConclusion",OBJ_LABEL,0,NULL,NULL);
+   ObjectCreate(0,"lblAdvice",OBJ_LABEL,0,NULL,NULL);
    //设置内容
    ObjectSetString(0,"lblMaBig",OBJPROP_TEXT,"4H大均线");
    ObjectSetString(0,"lblMaSmall",OBJPROP_TEXT,"4H小均线");
+   ObjectSetString(0,"lblAuthor",OBJPROP_TEXT,"作者：环球外汇网@Aother");
+   ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知");
+   ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：无");
    //设置颜色
    ObjectSetInteger(0,"lblMaBig",OBJPROP_COLOR,clrViolet);
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_COLOR,clrBlue);
+   ObjectSetInteger(0,"lblAdvice",OBJPROP_COLOR,clrRed);
    //--- 定位右上角 
    ObjectSetInteger(0,"lblMaBig",OBJPROP_CORNER ,CORNER_RIGHT_UPPER); 
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_CORNER ,CORNER_RIGHT_UPPER); 
+   ObjectSetInteger(0,"lblAuthor",OBJPROP_CORNER,CORNER_RIGHT_UPPER);
+   ObjectSetInteger(0,"lblConclusion",OBJPROP_CORNER,CORNER_RIGHT_UPPER);
+   //--- 定位右下角
+   ObjectSetInteger(0,"lblAdvice",OBJPROP_CORNER,CORNER_RIGHT_LOWER);
    //设置XY坐标
    ObjectSetInteger(0,"lblMaBig",OBJPROP_XDISTANCE,200);   
    ObjectSetInteger(0,"lblMaBig",OBJPROP_YDISTANCE,60); 
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_XDISTANCE,200);   
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_YDISTANCE,80);
+   ObjectSetInteger(0,"lblConclusion",OBJPROP_XDISTANCE,200);
+   ObjectSetInteger(0,"lblConclusion",OBJPROP_YDISTANCE,100); 
+   ObjectSetInteger(0,"lblAuthor",OBJPROP_XDISTANCE,200);
+   ObjectSetInteger(0,"lblAuthor",OBJPROP_YDISTANCE,120);
+   ObjectSetInteger(0,"lblAdvice",OBJPROP_XDISTANCE,450);
+   ObjectSetInteger(0,"lblAdvice",OBJPROP_YDISTANCE,30);
    
    
    return(INIT_SUCCEEDED);
@@ -88,10 +105,10 @@ void OnDeinit(const int reason)
 void OnTick()
 {
    // 趋势感知
-   // 4H大均线
-   double maBig = iMA(_Symbol,PERIOD_H4,MaBigPeriod,1,MODE_SMA,PRICE_CLOSE,0);
-   // 4H小均线
-   double maSmall = iMA(_Symbol,PERIOD_H4,MaSmallPeriod,1,MODE_SMA,PRICE_CLOSE,0);
+   // 4H慢均线
+   double maSlw = iMA(_Symbol,PERIOD_H4,MaSlwPeriod,1,MODE_SMA,PRICE_CLOSE,0);
+   // 4H快均线
+   double maFst = iMA(_Symbol,PERIOD_H4,MaFstPeriod,1,MODE_SMA,PRICE_CLOSE,0);
    // 当前K柱价格
    MqlTick  lastTick;
    SymbolInfoTick(_Symbol,lastTick);
@@ -99,20 +116,34 @@ void OnTick()
    double price = (lastTick.bid + lastTick.ask)/2;
    string strTMP;
    // 精度减少1位，精确到一个点
-   strTMP = "4H大均线: %." + IntegerToString((int)SymbolInfoInteger(_Symbol,SYMBOL_DIGITS)-1) + "f";
-   ObjectSetString(0,"lblMaBig",OBJPROP_TEXT,StringFormat(strTMP,maBig));
-   strTMP = "4H小均线: %." + IntegerToString((int)SymbolInfoInteger(_Symbol,SYMBOL_DIGITS)-1) + "f";
-   ObjectSetString(0,"lblMaSmall",OBJPROP_TEXT,StringFormat(strTMP,maSmall));     
+   strTMP = "4H慢均线：%." + IntegerToString((int)SymbolInfoInteger(_Symbol,SYMBOL_DIGITS)-1) + "f";
+   ObjectSetString(0,"lblMaBig",OBJPROP_TEXT,StringFormat(strTMP,maSlw));
+   strTMP = "4H快均线：%." + IntegerToString((int)SymbolInfoInteger(_Symbol,SYMBOL_DIGITS)-1) + "f";
+   ObjectSetString(0,"lblMaSmall",OBJPROP_TEXT,StringFormat(strTMP,maFst));     
    
    // 强势多头，打死坚决不做空，K价下探触及均线时支撑概率较大
-   if(price > maBig && price > maSmall)
+   if(price > maSlw && price > maFst && maFst > maSlw)
    {
+      ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势多头↑↑↑");
+      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrLime);
+      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做空，K价下探触及均线时支撑概率较大");
    
    }   
    // 强势空头，打死坚决不做多，K价下探触及均线时支撑概率较大
-   else if(price < maBig && price < maSmall)
-   {
+   else if(price < maSlw && price < maFst && maFst < maSlw)
+   {   
+      ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势空头↓↓↓");
+      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrPink);
+      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做多，K价下探触及均线时支撑概率较大");
+       
+   }
    
+   else
+   {   
+      ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：无");
+      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrGray);
+      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：无");
+          
    }
    
 }
