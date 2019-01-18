@@ -69,9 +69,9 @@ int OnInit()
    ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：无");
    //设置颜色
    ObjectSetInteger(0,"lblTimer",OBJPROP_COLOR,clrRed);
-   ObjectSetInteger(0,"lblMaBig",OBJPROP_COLOR,clrViolet);
+   ObjectSetInteger(0,"lblMaBig",OBJPROP_COLOR,clrHotPink);
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_COLOR,clrBlue);
-   ObjectSetInteger(0,"lblAuthor",OBJPROP_COLOR,clrBlack);
+   ObjectSetInteger(0,"lblAuthor",OBJPROP_COLOR,clrGray);
    ObjectSetInteger(0,"lblAdvice",OBJPROP_COLOR,clrRed);
    //--- 定位右上角 
    ObjectSetInteger(0,"lblTimer",OBJPROP_CORNER ,CORNER_RIGHT_UPPER); 
@@ -93,7 +93,7 @@ int OnInit()
    ObjectSetInteger(0,"lblAuthor",OBJPROP_XDISTANCE,200);
    ObjectSetInteger(0,"lblAuthor",OBJPROP_YDISTANCE,140);
    ObjectSetInteger(0,"lblAdvice",OBJPROP_XDISTANCE,450);
-   ObjectSetInteger(0,"lblAdvice",OBJPROP_YDISTANCE,30);
+   ObjectSetInteger(0,"lblAdvice",OBJPROP_YDISTANCE,20);
    
    
    return(INIT_SUCCEEDED);
@@ -143,7 +143,7 @@ void OnTick()
    else if(price < maSlw && price < maFst && maFst < maSlw)
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势空头↓↓↓");
-      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrPink);
+      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
       ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做多，K价下探触及均线时支撑概率较大");
        
    }
@@ -151,7 +151,7 @@ void OnTick()
    else
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：无");
-      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrGray);
+      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrBlack);
       ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：无");
           
    }
@@ -162,6 +162,7 @@ void OnTick()
 //+------------------------------------------------------------------+
 void OnTimer()
 {
+   // 定时刷新计算当前蜡烛剩余时间
    long hour = Time[0] + 60 * Period() - TimeCurrent();
    long minute = (hour - hour % 60) / 60;
    long second = hour % 60;
