@@ -144,7 +144,7 @@ void OnTick()
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势空头↓↓↓");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
-      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做多，K价下探触及均线时支撑概率较大");
+      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做多，K价摸顶触及均线时遇阻概率较大");
        
    }
    
