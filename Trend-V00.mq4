@@ -136,7 +136,7 @@ void OnTick()
    {
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势多头↑↑↑");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrLime);
-      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做空，K价下探触及均线时支撑概率较大");
+      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做空，K价探底触及均线时支撑概率较大");
    
    }   
    // 强势空头，打死坚决不做多，K价下探触及均线时支撑概率较大
@@ -147,7 +147,22 @@ void OnTick()
       ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做多，K价摸顶触及均线时遇阻概率较大");
        
    }
-   
+   // 震荡偏空
+   else if(price < maSlw && price < maFst && maFst > maSlw)
+   {   
+      ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：震荡偏空↓");
+      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
+      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：忌追单，宜布林上轨及KD指标超买区附近做空");
+       
+   }
+   // 震荡偏多
+   else if(price > maSlw && price > maFst && maFst < maSlw)
+   {   
+      ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：震荡偏多↑");
+      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
+      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：忌追单，宜布林下轨及KD指标超卖区附近做多");
+       
+   }
    else
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：无");
