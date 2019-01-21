@@ -62,8 +62,8 @@ int OnInit()
    ObjectCreate(0,"lblAdvice",OBJ_LABEL,0,NULL,NULL);
    //设置内容
    ObjectSetString(0,"lblTimer",OBJPROP_TEXT,_Symbol+"蜡烛剩余");
-   ObjectSetString(0,"lblMaBig",OBJPROP_TEXT,"4H大均线");
-   ObjectSetString(0,"lblMaSmall",OBJPROP_TEXT,"4H小均线");
+   ObjectSetString(0,"lblMaBig",OBJPROP_TEXT,"4H慢均线");
+   ObjectSetString(0,"lblMaSmall",OBJPROP_TEXT,"4H快均线");
    ObjectSetString(0,"lblAuthor",OBJPROP_TEXT,"作者：环球外汇网@Aother");
    ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知");
    ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：无");
@@ -131,45 +131,45 @@ void OnTick()
    strTMP = "4H快均线：%." + IntegerToString((int)SymbolInfoInteger(_Symbol,SYMBOL_DIGITS)-1) + "f";
    ObjectSetString(0,"lblMaSmall",OBJPROP_TEXT,StringFormat(strTMP,maFst));     
    
+   // 操作建议
+   string advice = "";
    // 强势多头，打死坚决不做空，K价下探触及均线时支撑概率较大
    if(price > maSlw && price > maFst && maFst > maSlw)
    {
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势多头↑↑↑");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrLime);
-      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做空，K价探底触及均线时支撑概率较大");
-   
+      advice = "操作建议：打死坚决不做空，K价探底触及均线时支撑概率较大";
    }   
    // 强势空头，打死坚决不做多，K价下探触及均线时支撑概率较大
    else if(price < maSlw && price < maFst && maFst < maSlw)
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势空头↓↓↓");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
-      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：打死坚决不做多，K价摸顶触及均线时遇阻概率较大");
-       
+      advice = "操作建议：打死坚决不做多，K价摸顶触及均线时遇阻概率较大";
    }
    // 震荡偏空
    else if(price < maSlw && price < maFst && maFst > maSlw)
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：震荡偏空↓");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
-      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：忌追单，宜布林上轨及KD指标超买区附近做空");
-       
+      advice = "操作建议：忌追单，宜布林上轨及KD指标超买区附近做空";       
    }
    // 震荡偏多
    else if(price > maSlw && price > maFst && maFst < maSlw)
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：震荡偏多↑");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
-      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：忌追单，宜布林下轨及KD指标超卖区附近做多");
-       
+      advice = "操作建议：忌追单，宜布林下轨及KD指标超卖区附近做多";           
    }
    else
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：无");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrBlack);
-      ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,"操作建议：无");
-          
+      advice = "操作建议：围观，不要参与";
    }
+   // 显示操作建议
+   ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,advice);
+   ObjectSetInteger(0,"lblAdvice",OBJPROP_XDISTANCE,16*StringLen(advice) + 16); 
    
 }
 //+------------------------------------------------------------------+
