@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|                                                    EasyTrend.mq4 |
+//|                                                    Trend-V00.mq4 |
 //|                        Copyright 2017, MetaQuotes Software Corp. |
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
@@ -11,6 +11,7 @@
 input int MaSlwPeriod   = 100;   //慢速均线周期
 
 input int MaFstPeriod = 60;      //快速均线周期
+
 
 //+------------------------------------------------------------------+
 //| Expert initialization function                                   |
@@ -34,7 +35,7 @@ int OnInit()
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_COLOR,clrBlue);
    ObjectSetInteger(0,"lblAuthor",OBJPROP_COLOR,clrGray);
    ObjectSetInteger(0,"lblAdvice",OBJPROP_COLOR,clrRed);
-   //--- 定位右上角  
+   //--- 定位右上角 
    ObjectSetInteger(0,"lblMaBig",OBJPROP_CORNER ,CORNER_RIGHT_UPPER); 
    ObjectSetInteger(0,"lblMaSmall",OBJPROP_CORNER ,CORNER_RIGHT_UPPER); 
    ObjectSetInteger(0,"lblAuthor",OBJPROP_CORNER,CORNER_RIGHT_UPPER);
