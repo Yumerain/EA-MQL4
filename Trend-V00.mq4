@@ -138,14 +138,14 @@ void OnTick()
    {
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势多头↑↑↑");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrLime);
-      advice = "操作建议：打死坚决不做空，K价探底触及均线时支撑概率较大";
+      advice = "操作建议：打死坚决不做空，宜突破进场、回踩进场，K价探底触及均线时支撑概率较大";
    }   
    // 强势空头，打死坚决不做多，K价下探触及均线时支撑概率较大
    else if(price < maSlw && price < maFst && maFst < maSlw)
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：强势空头↓↓↓");
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
-      advice = "操作建议：打死坚决不做多，K价摸顶触及均线时遇阻概率较大";
+      advice = "操作建议：打死坚决不做多，宜突破进场、回踩进场，K价摸顶触及均线时遇阻概率较大";
    }
    // 震荡偏空
    else if(price < maSlw && price < maFst && maFst > maSlw)
