@@ -147,20 +147,6 @@ void OnTick()
       ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
       advice = "操作建议：打死坚决不做多，宜突破进场、回踩进场，K价摸顶触及均线时遇阻概率较大";
    }
-   // 震荡偏空
-   else if(price < maSlw && price < maFst && maFst > maSlw)
-   {   
-      ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：震荡偏空↓");
-      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
-      advice = "操作建议：忌追单，宜布林上轨及KD指标超买区附近做空";       
-   }
-   // 震荡偏多
-   else if(price > maSlw && price > maFst && maFst < maSlw)
-   {   
-      ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：震荡偏多↑");
-      ObjectSetInteger(0,"lblConclusion",OBJPROP_COLOR,clrHotPink);
-      advice = "操作建议：忌追单，宜布林下轨及KD指标超卖区附近做多";           
-   }
    else
    {   
       ObjectSetString(0,"lblConclusion",OBJPROP_TEXT,"趋势感知：无");
