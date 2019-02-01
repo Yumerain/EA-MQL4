@@ -8,3 +8,4 @@ GoodMA.mq4现阶段历史回测多品种最好的一个<br/>
 EasyTrend.mq4一个傻瓜式的趋势指示器，不要做禁止方向的单子，提高胜率<br/>
 TrendMacd.mq4一个基于MACD指标金叉死叉的趋势型EA<br/>
 XBands.mq4一个把中线调粗了点的布林，便于和其他均线组成系统，而不用重复一条20均线
+Trend-V20.mq4一个指标解读
