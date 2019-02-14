@@ -2,6 +2,39 @@
 //|                                                    Trend-V20.mq4 |
 //|                        Copyright 2017, MetaQuotes Software Corp. |
 //|                                             https://www.mql5.com |
+/*
+一个成熟的交易系统应该是一个完善的交易系统，需要具备以下要素：
+    1、成功率；
+    2、盈利空间；
+    3、风险空间；
+    4、买点定位；
+    5、盈利卖点定位；
+    6、止损卖点定位；    
+    */
+    
+    /*    
+    先做如下定义：
+    成功系数：交易系统的成功率以小数点来表示，例如50%的成功率对应的成功系数为0.5。
+    盈损系数=盈利空间/(盈利空间+风险空间)。
+    时间系数:需要1个交易日，则初始值为1。其后每增加一个交易日，则系数减0.01。
+    盈利系数：盈利10%以内，则系数为0。其后每增加10%，则系数增加0.01。例如，盈利50%，则系数为0.04。
+    时效系数=时间系数+盈利系数。此系数很好的反应了时间的价值。
+    交易系统系数=(成功系数+盈损系数)×时效系数。此系数终极反映了交易系统的成熟度。
+    
+    理论上来说，交易系统系数最小值为0，最大值为2。此系数对于长线短线都适用。
+    */
+    
+    /*
+    对于可行性评估，我们把交易系统划分为以下几种：
+    基本交易系统：应该是成功系数大于0.5、盈损系数大于0.5的系统。这是最基本的生存于市场的交易系统。
+    风险交易系统：是成功系数小于0.5，或者盈损系数小于0.5，但交易系统系数大于1的系统。我们认为，只有交易系统系数大于1.2的风险交易系统，才是可值得操作的交易系统。
+    合格交易系统：是成功系数大于0.5、盈损系数大于0.5，同时交易系统系数大于1.2的交易系统。
+    优秀交易系统：是成功系数大于0.5、盈损系数大于0.5，同时交易系统系数大于1.5的交易系统。
+    天才交易系统：什么都不说，交易系统系数大于1.8的交易系统。
+    例如，一个超短线交易系统，所需时间为1个交易日，盈利空间为5%以上，风险空间为2%以内，成功率为80%，则交易系统系数为(5%/(5%+2%)+0.8)×（1+0）=1.514，为一个优秀的交易系统。
+    如果交易系统系数达不到1，则为失败的交易系统。至于交易系统系数达到2的完美的交易系统，只是存在于理论中，市场中永远不存在。
+    如果交易系统系数达不到1，则为失败的交易系统。至于交易系统系数达到2的完美的交易系统，只是存在于理论中，市场中永远不存在。    
+    */
 //+------------------------------------------------------------------+
 #property copyright "Copyright 2019, 环球外汇网友交流群@Aother,448036253@qq.com"
 #property link      "https://www.mql5.com"
@@ -117,16 +150,21 @@ void OnTick()
    //strTMP = "4H快均线：%." + IntegerToString((int)SymbolInfoInteger(_Symbol,SYMBOL_DIGITS)-1) + "f";
    //ObjectSetString(0,"lblMaSmall",OBJPROP_TEXT,StringFormat(strTMP,maFst));
 
+   // 操作建议
+   string advice = "";
+   
   //大周期
    if(macdBigSignal>0)
    {
          if(macdBigMain>=macdBigSignal)
          {
-            ObjectSetString(0,"lblBigPeriod",OBJPROP_TEXT,"MACD大周期：多头趋势");          
+            ObjectSetString(0,"lblBigPeriod",OBJPROP_TEXT,"MACD大周期：多头趋势");
+            advice = "操作建议：打死坚决不做空，宜突破进场、回踩进场，遇支撑涨概率大";          
          }   
          else
          {
             ObjectSetString(0,"lblBigPeriod",OBJPROP_TEXT,"MACD大周期：多头调整");
+            advice = "操作建议：见好就收";
          }
    }
    else if(macdBigSignal<0)
@@ -134,15 +172,18 @@ void OnTick()
       if(macdBigMain<=macdBigSignal)
       {
          ObjectSetString(0,"lblBigPeriod",OBJPROP_TEXT,"MACD大周期：空头趋势");
+         advice = "操作建议：打死坚决不做多，宜突破进场、回踩进场，遇阻回落概率大";
       }
       else
       {
          ObjectSetString(0,"lblBigPeriod",OBJPROP_TEXT,"MACD大周期：空头调整");
+         advice = "操作建议：见好就收";
       }
    }
    else
    {
-      ObjectSetString(0,"lblBigPeriod",OBJPROP_TEXT,"MACD大周期：无信号");   
+      ObjectSetString(0,"lblBigPeriod",OBJPROP_TEXT,"MACD大周期：无信号");
+      advice = "操作建议：待定";   
    }
    
    // 当前周期
@@ -160,7 +201,7 @@ void OnTick()
             else
             {
                ObjectSetString(0,"lblMacd",OBJPROP_TEXT,"MACD感知：多头趋势");
-            }            
+            }         
          }   
          else
          {
@@ -183,53 +224,53 @@ void OnTick()
       else
       {
          ObjectSetString(0,"lblMacd",OBJPROP_TEXT,"MACD感知：空头调整");
-      }
+      }      
    }
    else
    {
-      ObjectSetString(0,"lblMacd",OBJPROP_TEXT,"MACD感知：无信号");   
+      ObjectSetString(0,"lblMacd",OBJPROP_TEXT,"MACD感知：无信号");
    }
    
    
-   // 均线以及操作建议
-   string advice = "";
    // 强势多头，打死坚决不做空，K价下探触及均线时支撑概率较大
    if(price > maSlw && price > maFst && maFst > maSlw)
    {
       ObjectSetString(0,"lblMa",OBJPROP_TEXT,"均线感知：多头趋势");
       //ObjectSetInteger(0,"lblMa",OBJPROP_COLOR,clrLime);
-      advice = "操作建议：待定";
+      //advice = "操作建议：待定";
    }   
    // 强势空头，打死坚决不做多，K价下探触及均线时支撑概率较大
    else if(price < maSlw && price < maFst && maFst < maSlw)
    {   
       ObjectSetString(0,"lblMa",OBJPROP_TEXT,"均线感知：空头趋势");
       //ObjectSetInteger(0,"lblMa",OBJPROP_COLOR,clrHotPink);
-      advice = "操作建议：待定";
+      //advice = "操作建议：待定";
    }
    // 震荡偏空
    else if(price < maSlw && price < maFst && maFst > maSlw)
    {   
       ObjectSetString(0,"lblMa",OBJPROP_TEXT,"均线感知：偏空震荡");
       //ObjectSetInteger(0,"lblMa",OBJPROP_COLOR,clrHotPink);
-      advice = "操作建议：待定";       
+      //advice = "操作建议：待定";       
    }
    // 震荡偏多
    else if(price > maSlw && price > maFst && maFst < maSlw)
    {   
       ObjectSetString(0,"lblMa",OBJPROP_TEXT,"均线感知：偏多震荡");
       //ObjectSetInteger(0,"lblMa",OBJPROP_COLOR,clrHotPink);
-      advice = "操作建议：待定";           
+      //advice = "操作建议：待定";           
    }
    else
    {   
       ObjectSetString(0,"lblMa",OBJPROP_TEXT,"均线感知：震荡");
       //ObjectSetInteger(0,"lblMa",OBJPROP_COLOR,clrBlack);
-      advice = "操作建议：待定";
+      //advice = "操作建议：待定";
    }
+   
+   
    // 显示操作建议
    ObjectSetString(0,"lblAdvice",OBJPROP_TEXT,advice);
-   //ObjectSetInteger(0,"lblAdvice",OBJPROP_XDISTANCE,13*StringLen(advice) + 16); 
+   ObjectSetInteger(0,"lblAdvice",OBJPROP_XDISTANCE,13*StringLen(advice) + 13); 
    
 }
 //+------------------------------------------------------------------+
