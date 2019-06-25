@@ -60,7 +60,7 @@ double SumProfit()
          Print("统计盈利=>注意！选中仓单失败！序号=[",i,"]");
          continue;
       }
-      sum = OrderProfit();
+      sum += OrderProfit();
     }
     return sum;
 }
