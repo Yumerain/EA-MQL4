@@ -12,3 +12,4 @@ Trend-V20.mq4一个指标解读
 
 ## 简单清晰的图表
 KISS.mq4  指标指示器，简易的解读，大小周期结合，蜡烛剩余时间，枢轴支阻线，目前相对满意的一个图表
+![伦敦金XAUUSD](https://github.com/Yumerain/EA-MQL4/blob/master/xau.png)
