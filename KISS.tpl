@@ -1,8 +1,9 @@
 <chart>
-id=132019507979046190
+id=132058661983956442
+comment=MACD：主要=[-0.8]，信号=[-0.3]
 symbol=XAUUSD
 period=60
-leftpos=11120
+leftpos=21219
 digits=2
 scale=8
 graph=1
@@ -12,17 +13,17 @@ volume=0
 scroll=1
 shift=1
 ohlc=1
-one_click=0
+one_click=1
 one_click_btn=1
 askline=1
 days=1
 descriptions=0
 shift_size=15
 fixed_pos=0
-window_left=912
+window_left=0
 window_top=0
-window_right=1216
-window_bottom=98
+window_right=408
+window_bottom=165
 window_type=3
 background_color=0
 foreground_color=16777215
@@ -69,10 +70,10 @@ filling=0
 selectable=1
 hidden=0
 zorder=0
-time_0=1568595600
-value_0=1504.310000
-time_1=1568692800
-value_1=1504.310000
+time_0=1568768400
+value_0=1501.340000
+time_1=1568916000
+value_1=1501.340000
 ray=1
 </object>
 <object>
@@ -88,10 +89,10 @@ filling=0
 selectable=1
 hidden=0
 zorder=0
-time_0=1568595600
-value_0=1498.450000
-time_1=1568692800
-value_1=1498.450000
+time_0=1568768400
+value_0=1493.670000
+time_1=1568916000
+value_1=1493.670000
 ray=1
 </object>
 <object>
@@ -107,10 +108,10 @@ filling=0
 selectable=1
 hidden=0
 zorder=0
-time_0=1568682000
-value_0=1502.183333
-time_1=1568692800
-value_1=1502.183333
+time_0=1568854800
+value_0=1496.226667
+time_1=1568916000
+value_1=1496.226667
 ray=1
 </object>
 <object>
@@ -126,10 +127,10 @@ filling=0
 selectable=1
 hidden=0
 zorder=0
-time_0=1568682000
-value_0=1492.196667
-time_1=1568692800
-value_1=1492.196667
+time_0=1568854800
+value_0=1480.893333
+time_1=1568916000
+value_1=1480.893333
 ray=1
 </object>
 <object>
@@ -145,18 +146,18 @@ filling=0
 selectable=1
 hidden=0
 zorder=0
-time_0=1568682000
-value_0=1508.436667
-time_1=1568692800
-value_1=1508.436667
+time_0=1568854800
+value_0=1509.003333
+time_1=1568916000
+value_1=1509.003333
 ray=1
 </object>
 <object>
 type=23
 object_name=lblTimer
 period_flags=0
-create_time=1568683988
-description=XAUUSD蜡烛剩余：24分39秒
+create_time=1568906926
+description=XAUUSD蜡烛剩余：29分32秒
 color=32768
 font=Arial
 fontsize=10
@@ -175,8 +176,8 @@ y_distance=40
 type=23
 object_name=lblTrend
 period_flags=0
-create_time=1568683988
-description=4H MACD：空头调整
+create_time=1568906926
+description=4H MACD：空头↓
 color=255
 font=Arial
 fontsize=10
@@ -195,8 +196,8 @@ y_distance=60
 type=23
 object_name=lblMaGroup
 period_flags=0
-create_time=1568683988
-description=1H均线组：空头↓
+create_time=1568906926
+description=1H均线组：震荡~
 color=255
 font=Arial
 fontsize=10
@@ -215,7 +216,7 @@ y_distance=80
 type=23
 object_name=lblAuthor
 period_flags=0
-create_time=1568683988
+create_time=1568906926
 description=作者：环球外汇网@Aother
 color=8421504
 font=Arial
@@ -235,7 +236,7 @@ y_distance=100
 type=23
 object_name=lblAdvice
 period_flags=0
-create_time=1568683988
+create_time=1568906926
 description=
 color=255
 font=Arial
@@ -268,7 +269,7 @@ show_data=1
 name=Moving Average
 period=37
 shift=0
-method=1
+method=0
 apply=0
 color=9639167
 style=0
@@ -364,7 +365,7 @@ show_data=1
 
 <expert>
 name=KISS
-flags=279
+flags=275
 window_num=0
 </expert>
 </chart>
