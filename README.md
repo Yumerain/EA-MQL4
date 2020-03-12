@@ -10,11 +10,13 @@ AutoCloseEA.mq4是一个自动平仓EA，设定盈利金额启动后会一直执
 OKMA.mq4是一个基于均线交叉的自动交易EA<br/>
 TrendMacd.mq4一个基于MACD指标金叉死叉的趋势型EA<br/>
 GoodMA.mq4现阶段历史回测多品种最好的一个，以60MA作为支撑压力，突破后回踩入场<br/>
+Pinball.mq4	布林走平时，震荡行情超卖做多超买做空<br/>
 
 ### Indicators指标或基于ea的指标
 EasyTrend.mq4一个傻瓜式的趋势指示器，不要做禁止方向的单子，提高胜率<br/>
 XBands.mq4一个把中线调粗了点的布林，便于和其他加粗均线组成系统，而不用重复一条20均线<br/>
 Trend-V20.mq4一个指标解读<br/>
+Trend-V30.mq4	一个更加详细的趋势解读<br/>
 
 ### Scripts脚本
 CloseAll.mq4一键关闭所有订单，手动进行马丁式交易时快速平掉所有仓位<br/>
