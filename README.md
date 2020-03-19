@@ -28,3 +28,5 @@ KISS.mq4  指标指示器，简易的解读，大小周期结合，蜡烛剩余�
 注：折线图为系统自带指标ZigZag，去掉了之前不成熟的操作建议，留下思考空间，后续想法改进<br/>
 目前相对满意的一个图表，配合图标模板KISS.tpl。<br/>
 ![伦敦金XAUUSD](https://github.com/Yumerain/EA-MQL4/blob/master/xau.png)
+迄今为止最亮的自定义指标<br/>
+![英镑兑澳元](https://github.com/Yumerain/EA-MQL4/blob/master/GBPAUD.png)
