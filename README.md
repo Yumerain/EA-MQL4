@@ -31,3 +31,5 @@ KISS.mq4  指标指示器，简易的解读，大小周期结合，蜡烛剩余�
 ![伦敦金XAUUSD](https://github.com/Yumerain/EA-MQL4/blob/master/xau.png)
 迄今为止最亮的自定义指标<br/>
 ![英镑兑澳元](https://github.com/Yumerain/EA-MQL4/blob/master/GBPAUD.png)
+不要迷信马丁，基础手数0.03，初始资金1000，2020.4.1至2020.9.2才没爆仓<br/>
+![马丁EA资金曲线](https://github.com/Yumerain/EA-MQL4/blob/master/acct.png)
