@@ -11,6 +11,7 @@ OKMA.mq4是一个基于均线交叉的自动交易EA<br/>
 TrendMacd.mq4一个基于MACD指标金叉死叉的趋势型EA<br/>
 GoodMA.mq4现阶段历史回测多品种最好的一个，以60MA作为支撑压力，突破后回踩入场<br/>
 Pinball.mq4	布林走平时，震荡行情超卖做多超买做空<br/>
+BetaMT.mq4 马丁格尔策略，爆仓是它最终的命运，不要被它美丽的资金曲线迷惑<br/>
 
 ### Indicators指标或基于ea的指标
 EasyTrend.mq4一个傻瓜式的趋势指示器，不要做禁止方向的单子，提高胜率<br/>
